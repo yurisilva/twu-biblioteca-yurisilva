@@ -36,8 +36,21 @@ public class ExampleTest {
             }
         };
 
-        for (int i = 0; i < allBooks.size(); i++) {
-            assertEquals(allBooks.get(i), allExpectedBooks.get(i));
-        }
+        assertEquals(allBooks, allExpectedBooks);
+    }
+
+    @Test
+    public void viewAllBooksWithAuthorAndYear(){
+        BibliotecaApp bibliotecaApp = new BibliotecaApp();
+        ArrayList<String> allBooks = bibliotecaApp.getAllBooksVerbose();
+        ArrayList<String> allExpectedBooks = new ArrayList<String>(){
+            {
+                add("Dorian Grey | Oscar Wilde | 1890");
+                add("Outliers | Malcom Gladwell | 2008");
+                add("Pride and Prejudice | Jane Austen | 1813");
+            }
+        };
+
+        assertEquals(allBooks, allExpectedBooks);
     }
 }

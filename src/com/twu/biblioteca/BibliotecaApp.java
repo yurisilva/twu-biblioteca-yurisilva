@@ -21,4 +21,14 @@ public class BibliotecaApp {
             }
         };
     }
+
+    public ArrayList<String> getAllBooksVerbose() {
+        return new ArrayList<String>() {
+            {
+                add("Dorian Grey | Oscar Wilde | 1890");
+                add("Outliers | Malcom Gladwell | 2008");
+                add("Pride and Prejudice | Jane Austen | 1813");
+            }
+        };
+    }
 }
