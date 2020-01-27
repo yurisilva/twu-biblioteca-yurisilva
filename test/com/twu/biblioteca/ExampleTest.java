@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,6 +10,22 @@ import static org.junit.Assert.assertEquals;
 
 public class ExampleTest {
 
+    private BibliotecaApp bibliotecaApp = new BibliotecaApp();
+    private List<String> allExpectedBooks = new ArrayList<>();
+
+    @Before
+    public void prepareTest(){
+        BibliotecaApp.populateBooks();
+
+        allExpectedBooks = new ArrayList<String>(){
+            {
+                add("Dorian Grey");
+                add("Outliers");
+                add("Pride and Prejudice");
+            }
+        };
+    }
+
     @Test
     public void test() {
         assertEquals(1, 1);
@@ -18,7 +34,6 @@ public class ExampleTest {
     @Test
     public void viewWelcomeMessageTest(){
         String expectedMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
         String actualMessage = bibliotecaApp.welcomeMessage();
 
         assertEquals(expectedMessage, actualMessage);
@@ -26,24 +41,15 @@ public class ExampleTest {
 
     @Test
     public void viewAllBooks(){
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
-        ArrayList<String> allBooks = bibliotecaApp.getAllBooks();
-        ArrayList<String> allExpectedBooks = new ArrayList<String>(){
-            {
-                add("Dorian Grey");
-                add("Outliers");
-                add("Pride and Prejudice");
-            }
-        };
+        List<String> allBooks = bibliotecaApp.getAllBooks();
 
-        assertEquals(allBooks, allExpectedBooks);
+        assertEquals(allExpectedBooks, allBooks);
     }
 
     @Test
     public void viewAllBooksWithAuthorAndYear(){
-        BibliotecaApp bibliotecaApp = new BibliotecaApp();
-        ArrayList<String> allBooks = bibliotecaApp.getAllBooksVerbose();
-        ArrayList<String> allExpectedBooks = new ArrayList<String>(){
+        List<String> allBooks = bibliotecaApp.getAllBooksVerbose();
+        List<String> allExpectedBooksInfo = new ArrayList<String>(){
             {
                 add("Dorian Grey | Oscar Wilde | 1890");
                 add("Outliers | Malcom Gladwell | 2008");
@@ -51,6 +57,18 @@ public class ExampleTest {
             }
         };
 
-        assertEquals(allBooks, allExpectedBooks);
+        assertEquals(allBooks, allExpectedBooksInfo);
+    }
+
+    @Test
+    public void displayMainMenu(){
+        String expectedResult = "Select an option: 1) List of books";
+        String actualResult = bibliotecaApp.displayMainMenu();
+
+        assertEquals(expectedResult, actualResult);
+
+        String userInput = "1";
+
+        assertEquals(allExpectedBooks, bibliotecaApp.menuChoice(userInput));
     }
 }
