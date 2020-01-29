@@ -4,6 +4,7 @@ import com.twu.beans.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class BibliotecaApp {
 
@@ -22,13 +23,15 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         populateBooks();
         System.out.println("twu-biblioteca-yurisilva");
+        System.out.println(welcomeMessage());
+        Scanner userInput = new Scanner(System.in);
     }
 
-    public String welcomeMessage() {
+    public static String welcomeMessage() {
         return "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }
 
-    public List<String> getAllBooks() {
+    public String getAllBooks() {
 
         List<String> bookTitles = new ArrayList<>();
 
@@ -36,32 +39,28 @@ public class BibliotecaApp {
             bookTitles.add((book.getTitle()));
         }
 
-        return bookTitles;
+        return String.join("\n", bookTitles);
     }
 
-    public List<String> invalidOptionSelected() {
-        return new ArrayList<String>(){
-            {
-                add("Please select a valid option!");
-            }
-        };
+    public String invalidOptionSelected() {
+        return "Please select a valid option!";
     }
 
-    public List<String> getAllBooksVerbose() {
+    public String getAllBooksVerbose() {
         List<String> booksInfo = new ArrayList<>();
 
         for (Book book : books) {
             booksInfo.add(String.format("%s | %s | %s", book.getTitle(), book.getAuthor(), book.getYear()));
         }
 
-        return booksInfo;
+        return String.join("\n", booksInfo);
     }
 
     public String displayMainMenu() {
         return "Select an option: 1) List of books";
     }
 
-    public List<String> menuChoice(String userInput) {
+    public String menuChoice(String userInput) {
         switch (userInput){
             case "1":
                 return getAllBooks();

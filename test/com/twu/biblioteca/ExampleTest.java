@@ -11,24 +11,12 @@ import static org.junit.Assert.assertEquals;
 public class ExampleTest {
 
     private BibliotecaApp bibliotecaApp = new BibliotecaApp();
-    private List<String> allExpectedBooks = new ArrayList<>();
+    private String allExpectedBooks = "";
 
     @Before
     public void prepareTest(){
         BibliotecaApp.populateBooks();
-
-        allExpectedBooks = new ArrayList<String>(){
-            {
-                add("Dorian Grey");
-                add("Outliers");
-                add("Pride and Prejudice");
-            }
-        };
-    }
-
-    @Test
-    public void test() {
-        assertEquals(1, 1);
+        allExpectedBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
     }
 
     @Test
@@ -41,21 +29,14 @@ public class ExampleTest {
 
     @Test
     public void viewAllBooks(){
-        List<String> allBooks = bibliotecaApp.getAllBooks();
-
+        String allBooks = bibliotecaApp.getAllBooks();
         assertEquals(allExpectedBooks, allBooks);
     }
 
     @Test
     public void viewAllBooksWithAuthorAndYear(){
-        List<String> allBooks = bibliotecaApp.getAllBooksVerbose();
-        List<String> allExpectedBooksInfo = new ArrayList<String>(){
-            {
-                add("Dorian Grey | Oscar Wilde | 1890");
-                add("Outliers | Malcom Gladwell | 2008");
-                add("Pride and Prejudice | Jane Austen | 1813");
-            }
-        };
+        String allBooks = bibliotecaApp.getAllBooksVerbose();
+        String allExpectedBooksInfo = "Dorian Grey | Oscar Wilde | 1890\nOutliers | Malcom Gladwell | 2008\nPride and Prejudice | Jane Austen | 1813";
 
         assertEquals(allBooks, allExpectedBooksInfo);
     }
@@ -64,9 +45,6 @@ public class ExampleTest {
     public void displayMainMenu(){
         String expectedResult = "Select an option: 1) List of books";
         String actualResult = bibliotecaApp.displayMainMenu();
-
-        assertEquals(expectedResult, actualResult);
-
         String userInput = "1";
 
         assertEquals(allExpectedBooks, bibliotecaApp.menuChoice(userInput));
@@ -75,9 +53,8 @@ public class ExampleTest {
     @Test
     public void notifyUserInvalidOptionWasSelected(){
         String expectedResult = "Please select a valid option!";
-
         String userInput = "100";
 
-        assertEquals(expectedResult, bibliotecaApp.menuChoice(userInput).get(0));
+        assertEquals(expectedResult, bibliotecaApp.menuChoice(userInput));
     }
 }
