@@ -71,4 +71,13 @@ public class ExampleTest {
 
         assertEquals(allExpectedBooks, bibliotecaApp.menuChoice(userInput));
     }
+
+    @Test
+    public void notifyUserInvalidOptionWasSelected(){
+        String expectedResult = "Please select a valid option!";
+
+        String userInput = "100";
+
+        assertEquals(expectedResult, bibliotecaApp.menuChoice(userInput).get(0));
+    }
 }

@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import com.sun.codemodel.internal.JForEach;
 import com.twu.beans.Book;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         populateBooks();
-        System.out.println("Hello, world!");
+        System.out.println("twu-biblioteca-yurisilva");
     }
 
     public String welcomeMessage() {
@@ -40,6 +39,14 @@ public class BibliotecaApp {
         return bookTitles;
     }
 
+    public List<String> invalidOptionSelected() {
+        return new ArrayList<String>(){
+            {
+                add("Please select a valid option!");
+            }
+        };
+    }
+
     public List<String> getAllBooksVerbose() {
         List<String> booksInfo = new ArrayList<>();
 
@@ -55,6 +62,11 @@ public class BibliotecaApp {
     }
 
     public List<String> menuChoice(String userInput) {
-        return getAllBooks();
+        switch (userInput){
+            case "1":
+                return getAllBooks();
+            default:
+                return invalidOptionSelected();
+        }
     }
 }
