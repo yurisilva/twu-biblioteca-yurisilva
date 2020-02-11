@@ -17,7 +17,6 @@ public class ExampleTest {
 
     @Before
     public void prepareTest(){
-        //BibliotecaApp.populateBooks();
         allExpectedBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
     }
 
@@ -45,8 +44,6 @@ public class ExampleTest {
 
     @Test
     public void displayMainMenu(){
-        String expectedResult = "Select an option: 1) List of books";
-        String actualResult = bibliotecaApp.displayMainMenu();
         String userInput = "1";
 
         assertEquals(allExpectedBooks, bibliotecaApp.menuChoice(userInput));
@@ -85,5 +82,49 @@ public class ExampleTest {
 
         assertEquals(expectedMessage, bibliotecaApp.checkoutBookId(bookIdToCheckout));
 
+    }
+
+    @Test
+    public void returnBookSuccessfullyMessageTest(){
+        String bookId = "1";
+        String expectedMessage = "Thank you for returning the book";
+
+        bibliotecaApp.checkoutBookId(bookId);
+        assertEquals(expectedMessage, bibliotecaApp.returnBook(bookId));
+
+    }
+
+    @Test
+    public void returnBookFailedMessageTest(){
+        String bookId = "100";
+        String expectedMessage = "That is not a valid book to return";
+
+        bibliotecaApp.checkoutBookId(bookId);
+        assertEquals(expectedMessage, bibliotecaApp.returnBook(bookId));
+
+    }
+
+    @Test
+    public void checkoutFailedTest(){
+        String expectedMessage = "Sorry, that book is not available";
+        String bookIdToCheckout = "1";
+        bibliotecaApp.checkoutBookId(bookIdToCheckout);
+
+        assertEquals(expectedMessage, bibliotecaApp.checkoutBookId(bookIdToCheckout));
+
+    }
+
+    @Test
+    public void returnBookTest(){
+        allExpectedBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
+        String bookIdToCheckout = "1";
+        String bookIdToReturn = "1";
+        String booksAvailableAfterCheckout = "Outliers\nPride and Prejudice";
+
+        bibliotecaApp.checkoutBookId(bookIdToCheckout);
+        assertEquals(booksAvailableAfterCheckout, catalog.getAllBooks());
+
+        bibliotecaApp.returnBook(bookIdToReturn);
+        assertEquals(allExpectedBooks, catalog.getAllBooks());
     }
 }

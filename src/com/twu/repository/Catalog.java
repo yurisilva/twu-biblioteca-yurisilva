@@ -43,12 +43,19 @@ public class Catalog {
         return String.join("\n", booksInfo);
     }
 
-    public void checkout(String bookIdToCheckout) throws Exception {
-        Book toCheckout = getBookById(Integer.parseInt(bookIdToCheckout));
+    public String checkout(String bookIdToCheckout) {
 
-        if (toCheckout != null){
-            toCheckout.setAvailable(false);
+        try {
+            Book toCheckout = getBookById(Integer.parseInt(bookIdToCheckout));
+
+            if (toCheckout != null && toCheckout.isAvailable()) {
+                toCheckout.setAvailable(false);
+                return "Thank you! Enjoy the book";
+            }
         }
+        catch(Exception e){ }
+
+        return "Sorry, that book is not available";
     }
 
     private Book getBookById(int id) throws Exception {
@@ -59,5 +66,19 @@ public class Catalog {
         }
 
         throw new Exception("Book not found!");
+    }
+
+    public String returnBook(String bookIdToReturn) {
+        try {
+            Book toReturn = getBookById(Integer.parseInt(bookIdToReturn));
+
+            if (toReturn != null && !toReturn.isAvailable()) {
+                toReturn.setAvailable(true);
+                return "Thank you for returning the book";
+            }
+        }
+        catch(Exception e){ }
+
+        return "That is not a valid book to return";
     }
 }

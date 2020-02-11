@@ -14,6 +14,7 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         System.out.println("twu-biblioteca-yurisilva");
         System.out.println(welcomeMessage());
+        System.out.println(displayMainMenu());
     }
 
     public static String welcomeMessage() {
@@ -24,8 +25,8 @@ public class BibliotecaApp {
         return "Please select a valid option!";
     }
 
-    public String displayMainMenu() {
-        return "Select an option: 1) List of books";
+    public static String displayMainMenu() {
+        return "Select an option:\n1 - List of books\nq - Quit";
     }
 
     public String menuChoice(String userInput) {
@@ -40,12 +41,10 @@ public class BibliotecaApp {
     }
 
     public String checkoutBookId(String bookIdToCheckout) {
-        try{
-            catalog.checkout(bookIdToCheckout);
-        }
-        catch(Exception e){
+        return catalog.checkout(bookIdToCheckout);
+    }
 
-        }
-        return "Thank you! Enjoy the book";
+    public String returnBook(String bookIdToReturn) {
+        return catalog.returnBook(bookIdToReturn);
     }
 }
