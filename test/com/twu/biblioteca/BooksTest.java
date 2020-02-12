@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.repository.Catalog;
-import com.twu.repository.User;
+import com.twu.repository.Users;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ public class BooksTest {
     private BibliotecaApp bibliotecaApp = new BibliotecaApp();
     private Catalog catalog = new Catalog();
     private String allExpectedBooks = "";
-    private User user = new User();
+    private Users users = new Users();
 
     @Before
     public void prepareTest(){

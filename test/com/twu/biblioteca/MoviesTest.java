@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.repository.Catalog;
-import com.twu.repository.User;
+import com.twu.repository.Users;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ public class MoviesTest {
     private BibliotecaApp bibliotecaApp = new BibliotecaApp();
     private Catalog catalog = new Catalog();
     private String allExpectedMovies = "";
-    private User user = new User();
+    private Users users = new Users();
 
     @Before
     public void prepareTest(){
@@ -60,9 +60,21 @@ public class MoviesTest {
     public void getLoggedUserTest(){
         String userNumber = "0000001";
         String userPassword = "123";
-        user.login(userNumber, userPassword);
+        users.login(userNumber, userPassword);
         String expectedResult = "0000001";
 
-        assertEquals(expectedResult, user.getLoggedUser());
+        assertEquals(expectedResult, users.getLoggedUser());
+    }
+
+    @Test
+    public void viewMyInfoTest(){
+        String userNumber = "1234567";
+        String userPassword = "123";
+        bibliotecaApp.login(userNumber, userPassword);
+        String expectedResult = "Joey Tribbiani\njoey@friends.com\n(919)641-8490";
+        String userInput = "6";
+
+        assertEquals(expectedResult, bibliotecaApp.menuChoice(userInput));
+
     }
 }

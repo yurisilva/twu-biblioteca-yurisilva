@@ -3,14 +3,14 @@ package com.twu.biblioteca;
 import com.twu.beans.Book;
 import com.twu.beans.Movie;
 import com.twu.repository.Catalog;
-import com.twu.repository.User;
+import com.twu.repository.Users;
 
 import java.util.Scanner;
 
 public class BibliotecaApp {
 
     private static Catalog catalog = new Catalog();
-    private static User users = new User();
+    private static Users users = new Users();
 
     public static void main(String[] args) {
         System.out.println("twu-biblioteca-yurisilva");
@@ -26,8 +26,8 @@ public class BibliotecaApp {
         System.out.println(login(libraryNumber, password));
 
         if(users.isUserLogged()){
-            System.out.println(displayMainMenu());
 
+            System.out.println(displayMainMenu());
             String userChoice = scanner.nextLine();
 
             while (!userChoice.equals("q")){
@@ -50,7 +50,7 @@ public class BibliotecaApp {
     }
 
     public static String displayMainMenu() {
-        return "Select an option:\n1 - List of books\n2 - List of Books (detailed)\n3 - Checkout a book\n4 - Return a book\n5 - List of Movies\nq - Quit";
+        return "Select an option:\n1 - List of books\n2 - List of Books (detailed)\n3 - Checkout a book\n4 - Return a book\n5 - List of Movies\n6 - See my information\nq - Quit";
     }
 
     public static String menuChoice(String userInput) {
@@ -65,6 +65,8 @@ public class BibliotecaApp {
                 return showReturnBookMenu();
             case "5":
                 return catalog.getAllMovies();
+            case "6":
+                return users.getUserInfo(users.getLoggedUser());
             case "q":
                 return "Bye!";
             default:
