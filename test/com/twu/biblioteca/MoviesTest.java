@@ -37,11 +37,21 @@ public class MoviesTest {
     }
 
     @Test
-    public void loginTest(){
+    public void loginSuccessfulTest(){
         String userNumber = "0000001";
         String userPassword = "123";
 
         String expectedMessage = String.format("Welcome, user %s",userNumber);
+
+        assertEquals(expectedMessage, bibliotecaApp.login(userNumber, userPassword));
+    }
+
+    @Test
+    public void loginUnsuccessfulTest(){
+        String userNumber = "0000001";
+        String userPassword = "1234";
+
+        String expectedMessage = "User not registered";
 
         assertEquals(expectedMessage, bibliotecaApp.login(userNumber, userPassword));
     }

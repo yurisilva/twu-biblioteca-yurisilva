@@ -15,18 +15,29 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         System.out.println("twu-biblioteca-yurisilva");
         System.out.println(welcomeMessage());
-        System.out.println(displayMainMenu());
-
         Scanner scanner = new Scanner(System.in);
-        String userChoice = scanner.nextLine();
 
-        while (!userChoice.equals("q")){
-            String result = menuChoice(userChoice);
+        System.out.println("Type in your library number: ");
+        String libraryNumber = scanner.nextLine();
 
-            System.out.println(result);
+        System.out.print("Type in your password: ");
+        String password = scanner.nextLine();
+
+        System.out.println(login(libraryNumber, password));
+
+        if(users.isUserLogged()){
             System.out.println(displayMainMenu());
 
-            userChoice = scanner.nextLine();
+            String userChoice = scanner.nextLine();
+
+            while (!userChoice.equals("q")){
+                String result = menuChoice(userChoice);
+
+                System.out.println(result);
+                System.out.println(displayMainMenu());
+
+                userChoice = scanner.nextLine();
+            }
         }
     }
 
@@ -74,8 +85,7 @@ public class BibliotecaApp {
             Book toCheckout = catalog.getBookById(Integer.parseInt(bookIdToCheckout));
 
             if (toCheckout != null && toCheckout.isAvailable()) {
-                toCheckout.setAvailable(false);
-                toCheckout.setWhoHasIt(users.getLoggedUser());
+                changeBookState(toCheckout, false, users.getLoggedUser());
                 return "Thank you! Enjoy the book";
             }
         }
@@ -96,14 +106,18 @@ public class BibliotecaApp {
             Book toReturn = catalog.getBookById(Integer.parseInt(bookIdToReturn));
 
             if (toReturn != null && !toReturn.isAvailable()) {
-                toReturn.setAvailable(true);
-                toReturn.setWhoHasIt("");
+                changeBookState(toReturn, true, "");
                 return "Thank you for returning the book";
             }
         }
         catch(Exception e){ }
 
         return "That is not a valid book to return";
+    }
+
+    private static void changeBookState(Book book, boolean available, String whoHasIt) {
+        book.setAvailable(available);
+        book.setWhoHasIt(whoHasIt);
     }
 
     public void checkoutMovie(String movieIdToCheckout) {
@@ -118,7 +132,7 @@ public class BibliotecaApp {
 
     }
 
-    public String login(String userNumber, String userPassword) {
+    public static String login(String userNumber, String userPassword) {
         if(users.login(userNumber, userPassword)){
             return String.format("Welcome, user %s", userNumber);
         }

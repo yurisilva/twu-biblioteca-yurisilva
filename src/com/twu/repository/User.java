@@ -26,4 +26,6 @@ public class User {
     public String getLoggedUser(){
         return loggedUser;
     }
+
+    public boolean isUserLogged() { return loggedUser != ""; }
 }
