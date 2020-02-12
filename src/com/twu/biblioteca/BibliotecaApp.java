@@ -3,12 +3,14 @@ package com.twu.biblioteca;
 import com.twu.beans.Book;
 import com.twu.beans.Movie;
 import com.twu.repository.Catalog;
+import com.twu.repository.User;
 
 import java.util.Scanner;
 
 public class BibliotecaApp {
 
     private static Catalog catalog = new Catalog();
+    private static User users = new User();
 
     public static void main(String[] args) {
         System.out.println("twu-biblioteca-yurisilva");
@@ -112,5 +114,14 @@ public class BibliotecaApp {
         }
         catch(Exception e){ }
 
+    }
+
+    public String login(String userNumber, String userPassword) {
+        if(users.login(userNumber, userPassword)){
+            return String.format("Welcome, user %s", userNumber);
+        }
+        else{
+            return "User not registered";
+        }
     }
 }

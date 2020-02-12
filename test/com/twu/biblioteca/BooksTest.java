@@ -6,17 +6,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ExampleTest {
+public class BooksTest {
 
     private BibliotecaApp bibliotecaApp = new BibliotecaApp();
     private Catalog catalog = new Catalog();
     private String allExpectedBooks = "";
-    private String allExpectedMovies = "";
 
     @Before
     public void prepareTest(){
         allExpectedBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
-        allExpectedMovies = "Nightmare Before Christmas\nTitanic\nThe Lion King\nBacurau";
     }
 
     @Test
@@ -125,21 +123,5 @@ public class ExampleTest {
 
         bibliotecaApp.returnBook(bookIdToReturn);
         assertEquals(allExpectedBooks, catalog.getAllBooks());
-    }
-
-    @Test
-    public void showAllMoviesTest(){
-        String allMovies = catalog.getAllMovies();
-        assertEquals(allExpectedMovies, allMovies);
-    }
-
-    @Test
-    public void checkoutMovieTest(){
-        String movieIdToCheckout = "1";
-        String moviesAvailableAfterCheckout = "Titanic\nThe Lion King\nBacurau";
-        bibliotecaApp.checkoutMovie(movieIdToCheckout);
-
-        assertEquals(moviesAvailableAfterCheckout, catalog.getAllMovies());
-
     }
 }
