@@ -45,9 +45,9 @@ public class BibliotecaApp {
             case "2":
                 return catalog.getAllBooksVerbose();
             case "3":
-                showCheckoutBookMenu();
+                return showCheckoutBookMenu();
             case "4":
-                showReturnBookMenu();
+                return showReturnBookMenu();
             case "q":
                 return "Bye!";
             default:
@@ -55,18 +55,18 @@ public class BibliotecaApp {
         }
     }
 
-    private static void showCheckoutBookMenu() {
-        System.out.println("Please provide book ID");
+    private static String showCheckoutBookMenu() {
+        System.out.println("Please provide book ID to checkout");
         Scanner consoleInput = new Scanner(System.in);
         String bookId = consoleInput.nextLine();
-        System.out.println(catalog.checkout(bookId));
+        return catalog.checkout(bookId);
     }
 
-    private static void showReturnBookMenu() {
-        System.out.println("Please provide book ID");
+    private static String showReturnBookMenu() {
+        System.out.println("Please provide book ID to return");
         Scanner consoleInput = new Scanner(System.in);
         String bookId = consoleInput.nextLine();
-        System.out.println(catalog.returnBook(bookId));
+        return catalog.returnBook(bookId);
     }
 
     public String checkoutBookId(String bookIdToCheckout) {
