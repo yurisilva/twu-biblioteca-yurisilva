@@ -11,10 +11,12 @@ public class ExampleTest {
     private BibliotecaApp bibliotecaApp = new BibliotecaApp();
     private Catalog catalog = new Catalog();
     private String allExpectedBooks = "";
+    private String allExpectedMovies = "";
 
     @Before
     public void prepareTest(){
         allExpectedBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
+        allExpectedMovies = "Nightmare Before Christmas\nTitanic\nThe Lion King\nBacurau";
     }
 
     @Test
@@ -66,7 +68,7 @@ public class ExampleTest {
     public void checkoutBookTest(){
         String bookIdToCheckout = "1";
         String booksAvailableAfterCheckout = "Outliers\nPride and Prejudice";
-        bibliotecaApp.checkoutBookId(bookIdToCheckout);
+        bibliotecaApp.checkoutBook(bookIdToCheckout);
 
         assertEquals(booksAvailableAfterCheckout, catalog.getAllBooks());
 
@@ -77,7 +79,7 @@ public class ExampleTest {
         String bookIdToCheckout = "1";
         String expectedMessage = "Thank you! Enjoy the book";
 
-        assertEquals(expectedMessage, bibliotecaApp.checkoutBookId(bookIdToCheckout));
+        assertEquals(expectedMessage, bibliotecaApp.checkoutBook(bookIdToCheckout));
 
     }
 
@@ -86,7 +88,7 @@ public class ExampleTest {
         String bookId = "1";
         String expectedMessage = "Thank you for returning the book";
 
-        bibliotecaApp.checkoutBookId(bookId);
+        bibliotecaApp.checkoutBook(bookId);
         assertEquals(expectedMessage, bibliotecaApp.returnBook(bookId));
 
     }
@@ -96,7 +98,7 @@ public class ExampleTest {
         String bookId = "100";
         String expectedMessage = "That is not a valid book to return";
 
-        bibliotecaApp.checkoutBookId(bookId);
+        bibliotecaApp.checkoutBook(bookId);
         assertEquals(expectedMessage, bibliotecaApp.returnBook(bookId));
 
     }
@@ -105,9 +107,9 @@ public class ExampleTest {
     public void checkoutFailedTest(){
         String expectedMessage = "Sorry, that book is not available";
         String bookIdToCheckout = "1";
-        bibliotecaApp.checkoutBookId(bookIdToCheckout);
+        bibliotecaApp.checkoutBook(bookIdToCheckout);
 
-        assertEquals(expectedMessage, bibliotecaApp.checkoutBookId(bookIdToCheckout));
+        assertEquals(expectedMessage, bibliotecaApp.checkoutBook(bookIdToCheckout));
 
     }
 
@@ -118,10 +120,26 @@ public class ExampleTest {
         String bookIdToReturn = "1";
         String booksAvailableAfterCheckout = "Outliers\nPride and Prejudice";
 
-        bibliotecaApp.checkoutBookId(bookIdToCheckout);
+        bibliotecaApp.checkoutBook(bookIdToCheckout);
         assertEquals(booksAvailableAfterCheckout, catalog.getAllBooks());
 
         bibliotecaApp.returnBook(bookIdToReturn);
         assertEquals(allExpectedBooks, catalog.getAllBooks());
+    }
+
+    @Test
+    public void showAllMoviesTest(){
+        String allMovies = catalog.getAllMovies();
+        assertEquals(allExpectedMovies, allMovies);
+    }
+
+    @Test
+    public void checkoutMovieTest(){
+        String movieIdToCheckout = "1";
+        String moviesAvailableAfterCheckout = "Titanic\nThe Lion King\nBacurau";
+        bibliotecaApp.checkoutMovie(movieIdToCheckout);
+
+        assertEquals(moviesAvailableAfterCheckout, catalog.getAllMovies());
+
     }
 }

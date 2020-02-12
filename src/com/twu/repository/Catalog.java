@@ -1,12 +1,15 @@
 package com.twu.repository;
 
 import com.twu.beans.Book;
+import com.twu.beans.Movie;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Catalog {
 
     private static List<Book> books = new ArrayList<>();
+    private static List<Movie> movies = new ArrayList<>();
 
     public Catalog(){
         books = new ArrayList<Book>(){
@@ -14,6 +17,15 @@ public class Catalog {
                 add(new Book(1, "Dorian Grey", "Oscar Wilde", 1890));
                 add(new Book(2,"Outliers", "Malcom Gladwell", 2008));
                 add(new Book(3,"Pride and Prejudice", "Jane Austen", 1813));
+            }
+        };
+
+        movies = new ArrayList<Movie>(){
+            {
+                add(new Movie(1, "Nightmare Before Christmas", 1993, "Tim Burton", 8));
+                add(new Movie(2, "Titanic", 1997, "James Cameron", 7.8));
+                add(new Movie(3, "The Lion King", 1994, "Rob Minkoff, Roger Allers", 8.5));
+                add(new Movie(4, "Bacurau", 2019, "Kleber Mendonça Filho", 7.8));
             }
         };
     }
@@ -43,22 +55,7 @@ public class Catalog {
         return String.join("\n", booksInfo);
     }
 
-    public String checkout(String bookIdToCheckout) {
-
-        try {
-            Book toCheckout = getBookById(Integer.parseInt(bookIdToCheckout));
-
-            if (toCheckout != null && toCheckout.isAvailable()) {
-                toCheckout.setAvailable(false);
-                return "Thank you! Enjoy the book";
-            }
-        }
-        catch(Exception e){ }
-
-        return "Sorry, that book is not available";
-    }
-
-    private Book getBookById(int id) throws Exception {
+    public Book getBookById(int id) throws Exception {
         for (Book book : books) {
             if (book.getId() == id) {
                 return book;
@@ -68,17 +65,26 @@ public class Catalog {
         throw new Exception("Book not found!");
     }
 
-    public String returnBook(String bookIdToReturn) {
-        try {
-            Book toReturn = getBookById(Integer.parseInt(bookIdToReturn));
+    public String getAllMovies() {
+        List<String> movieTitles = new ArrayList<>();
 
-            if (toReturn != null && !toReturn.isAvailable()) {
-                toReturn.setAvailable(true);
-                return "Thank you for returning the book";
+        for (Movie movie : movies) {
+            if (movie.isAvailable()) {
+                movieTitles.add((movie.getTitle()));
             }
         }
-        catch(Exception e){ }
 
-        return "That is not a valid book to return";
+        return String.join("\n", movieTitles);
+    }
+
+
+    public Movie getMovieById(int id) throws Exception {
+        for (Movie movie : movies) {
+            if (movie.getId() == id) {
+                return movie;
+            }
+        }
+
+        throw new Exception("Book not found!");
     }
 }

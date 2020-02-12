@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.beans.Book;
+import com.twu.beans.Movie;
 import com.twu.repository.Catalog;
 
 import java.util.Scanner;
@@ -35,7 +37,7 @@ public class BibliotecaApp {
     }
 
     public static String displayMainMenu() {
-        return "Select an option:\n1 - List of books\n2 - List of Books (detailed)\n3 - Checkout a book\n4 - Return a book\nq - Quit";
+        return "Select an option:\n1 - List of books\n2 - List of Books (detailed)\n3 - Checkout a book\n4 - Return a book\n5 - List of Movies\nq - Quit";
     }
 
     public static String menuChoice(String userInput) {
@@ -48,6 +50,8 @@ public class BibliotecaApp {
                 return showCheckoutBookMenu();
             case "4":
                 return showReturnBookMenu();
+            case "5":
+                return catalog.getAllMovies();
             case "q":
                 return "Bye!";
             default:
@@ -59,21 +63,54 @@ public class BibliotecaApp {
         System.out.println("Please provide book ID to checkout");
         Scanner consoleInput = new Scanner(System.in);
         String bookId = consoleInput.nextLine();
-        return catalog.checkout(bookId);
+        return checkoutBook(bookId);
+    }
+
+    public static String checkoutBook(String bookIdToCheckout) {
+
+        try {
+            Book toCheckout = catalog.getBookById(Integer.parseInt(bookIdToCheckout));
+
+            if (toCheckout != null && toCheckout.isAvailable()) {
+                toCheckout.setAvailable(false);
+                return "Thank you! Enjoy the book";
+            }
+        }
+        catch(Exception e){ }
+
+        return "Sorry, that book is not available";
     }
 
     private static String showReturnBookMenu() {
         System.out.println("Please provide book ID to return");
         Scanner consoleInput = new Scanner(System.in);
         String bookId = consoleInput.nextLine();
-        return catalog.returnBook(bookId);
+        return returnBook(bookId);
     }
 
-    public String checkoutBookId(String bookIdToCheckout) {
-        return catalog.checkout(bookIdToCheckout);
+    public static String returnBook(String bookIdToReturn) {
+        try {
+            Book toReturn = catalog.getBookById(Integer.parseInt(bookIdToReturn));
+
+            if (toReturn != null && !toReturn.isAvailable()) {
+                toReturn.setAvailable(true);
+                return "Thank you for returning the book";
+            }
+        }
+        catch(Exception e){ }
+
+        return "That is not a valid book to return";
     }
 
-    public String returnBook(String bookIdToReturn) {
-        return catalog.returnBook(bookIdToReturn);
+    public void checkoutMovie(String movieIdToCheckout) {
+        try {
+            Movie toCheckout = catalog.getMovieById(Integer.parseInt(movieIdToCheckout));
+
+            if (toCheckout != null && toCheckout.isAvailable()) {
+                toCheckout.setAvailable(false);
+            }
+        }
+        catch(Exception e){ }
+
     }
 }
