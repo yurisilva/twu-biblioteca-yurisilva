@@ -1,0 +1,1 @@
+select name from member m join checkout_item c on c.member_id = m.id where c.book_id = (select id from book where title = 'The Hobbit');
