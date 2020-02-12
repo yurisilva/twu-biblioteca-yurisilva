@@ -75,6 +75,7 @@ public class BibliotecaApp {
 
             if (toCheckout != null && toCheckout.isAvailable()) {
                 toCheckout.setAvailable(false);
+                toCheckout.setWhoHasIt(users.getLoggedUser());
                 return "Thank you! Enjoy the book";
             }
         }
@@ -96,6 +97,7 @@ public class BibliotecaApp {
 
             if (toReturn != null && !toReturn.isAvailable()) {
                 toReturn.setAvailable(true);
+                toReturn.setWhoHasIt("");
                 return "Thank you for returning the book";
             }
         }
@@ -123,5 +125,18 @@ public class BibliotecaApp {
         else{
             return "User not registered";
         }
+    }
+
+    public String whoCheckedOutBookId(String bookId) {
+        try {
+            Book book = catalog.getBookById(Integer.parseInt(bookId));
+
+            if (book != null && !book.isAvailable()) {
+                return book.whoHasIt();
+            }
+        }
+        catch(Exception e){ }
+
+        return "";
     }
 }

@@ -6,6 +6,7 @@ public class Book {
     private String author;
     private Integer year;
     private boolean available;
+    private String whoHasIt;
 
     public Book(int id, String title, String author, Integer year) {
         this.id = id;
@@ -13,6 +14,7 @@ public class Book {
         this.author = author;
         this.year = year;
         this.available = true;
+        this.whoHasIt = "";
     }
 
     public Book() { }
@@ -45,5 +47,13 @@ public class Book {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public String whoHasIt() {
+        return this.whoHasIt;
+    }
+
+    public void setWhoHasIt(String loggedUser) {
+        this.whoHasIt = loggedUser;
     }
 }
