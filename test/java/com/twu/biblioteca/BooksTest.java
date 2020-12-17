@@ -11,12 +11,12 @@ public class BooksTest {
 
     private BibliotecaApp bibliotecaApp = new BibliotecaApp();
     private Catalog catalog = new Catalog();
-    private String allExpectedBooks = "";
+    private String allExpectedNewBooks = "";
     private Users users = new Users();
 
     @Before
     public void prepareTest(){
-        allExpectedBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
+        allExpectedNewBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
     }
 
     @Test
@@ -30,7 +30,7 @@ public class BooksTest {
     @Test
     public void viewAllBooks(){
         String allBooks = catalog.getAllBooks();
-        assertEquals(allExpectedBooks, allBooks);
+        assertEquals(allExpectedNewBooks, allBooks);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class BooksTest {
     public void displayMainMenu(){
         String userInput = "1";
 
-        assertEquals(allExpectedBooks, bibliotecaApp.menuChoice(userInput));
+        assertEquals(allExpectedNewBooks, bibliotecaApp.menuChoice(userInput));
     }
 
     @Test
@@ -115,7 +115,7 @@ public class BooksTest {
 
     @Test
     public void returnBookTest(){
-        allExpectedBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
+        allExpectedNewBooks = "Dorian Grey\nOutliers\nPride and Prejudice";
         String bookIdToCheckout = "1";
         String bookIdToReturn = "1";
         String booksAvailableAfterCheckout = "Outliers\nPride and Prejudice";
@@ -124,7 +124,7 @@ public class BooksTest {
         assertEquals(booksAvailableAfterCheckout, catalog.getAllBooks());
 
         bibliotecaApp.returnBook(bookIdToReturn);
-        assertEquals(allExpectedBooks, catalog.getAllBooks());
+        assertEquals(allExpectedNewBooks, catalog.getAllBooks());
     }
 
     @Test
